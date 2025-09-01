@@ -6,5 +6,6 @@ int main(){
     cout << "prorprorp" <<endl;
     int j;
     cin >>j;
+    cout << j;
 } 
 
