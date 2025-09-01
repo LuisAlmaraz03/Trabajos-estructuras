@@ -1,8 +1,10 @@
 #include <iostream>
-
+using namespace std;
 int main(){
-    std::cout << "Hello, world!, ja perro" << std::endl;
+    cout << "Hello, world!, ja perro" <<endl;
     return 0;
-    std::cout << "prorprorp" << std::endl;
+    cout << "prorprorp" <<endl;
+    int j;
+    cin >>j;
 } 
 
