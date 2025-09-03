@@ -1,0 +1,26 @@
+CODIGO PARA BUSCAR HASH DEL COMMIT (identificador del commit)
+    git log
+    git log --oneline (muestra menos informacion y el hash es mas pequeño)
+
+CODIGO PARA "REINICIAR"
+    git checkout <nombre del archivo> o . para todos los archivos ()
+    git reset --soft <hash del commit> (Regresar al commit nombrado, pero los archivos del commit "eliminado"
+                                        Se almacenan en el area de subida "archivos añadidos" antes del commit)
+    git reset --hard <hash del commit> (Regresa al commit nombrado eliminando todo sin almacenar nada 
+                                        en ningun area,)
+CODIGO PARA MODIFICAR COMMIT
+    git commit --amend (Permite modificar unicamente el ultimo commit agregado)
+
+CODIGO PARA RAMAS
+    git brach (muestra las ramas creadas)
+    git brach <nombre de rama> (crea una rama)
+    git switch <nombre de la rama> (moverse a otra rama)
+    git switch -c <nombre de rama> (crea y te mueve a la rama creada)
+    git brach -d <nomnbre de la rama> (elimina la rama, se tiene que estar en otra rama para eliminar)
+    git brach -m (cambiar el nombre de la rama sobre la que estas)
+    git merge <nombre de la rama> (Estando en la rama original, combina las ramas)
+
+CODIGO PARA ACTULIZACION DE REPOCITORIO REMOTO
+    git push (sube los cambios commiteados)
+    git pull (actualiza los cambios comparado con el repocitorio)
+    git fetch (descarga los cambio creando una rama temporar para revisar los cambios)
