@@ -5,8 +5,8 @@ int main() {
     cout<<"Menu de compilados"<<endl;
     cout<<"1. Algortimos de Recursividad"<<endl;
     cout<<"2. Algoritmos de Arreglos Unidimensionales"<<endl;
-cin>>opc;
-switch(opc) {
+    cin>>opc;
+    switch(opc) {
     case 1:
         cout<<"Has seleccionado Algoritmos de Recursividad"<<endl;
         break;
@@ -16,5 +16,5 @@ switch(opc) {
     default:
         cout<<"Opcion no valida"<<endl;
         break;
-}
+    }
 }
