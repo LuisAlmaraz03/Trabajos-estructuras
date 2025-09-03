@@ -12,12 +12,12 @@ CODIGO PARA MODIFICAR COMMIT
     git commit --amend (Permite modificar unicamente el ultimo commit agregado)
 
 CODIGO PARA RAMAS
-    git brach (muestra las ramas creadas)
-    git brach <nombre de rama> (crea una rama)
+    git branch (muestra las ramas creadas)
+    git branch <nombre de rama> (crea una rama)
     git switch <nombre de la rama> (moverse a otra rama)
     git switch -c <nombre de rama> (crea y te mueve a la rama creada)
-    git brach -d <nomnbre de la rama> (elimina la rama, se tiene que estar en otra rama para eliminar)
-    git brach -m (cambiar el nombre de la rama sobre la que estas)
+    git branch -d <nomnbre de la rama> (elimina la rama, se tiene que estar en otra rama para eliminar)
+    git branch -m (cambiar el nombre de la rama sobre la que estas)
     git merge <nombre de la rama> (Estando en la rama original, combina las ramas)
 
 CODIGO PARA ACTULIZACION DE REPOCITORIO REMOTO
