@@ -40,11 +40,11 @@ int main() {
         cout<<"Has seleccionado Algoritmos de Arreglos Unidimensionales\n";
         cout<<"1. Ordenand un arreglo de enteros MAX 8\n";
         cout<<"2. Localizador de carracter\n";
-        cout<<"3. \n";
-        cout<<"4. \n";
-        cout<<"5. \n";
-        cout<<"6. \n";
-        cout<<"7. \n"<<endl;
+        cout<<"3. Suma de arreglos unidimensionales\n";
+        cout<<"4. Promedio y desviacion estandar de calificacion\n";
+        cout<<"5. Añadir y recorrer elementos en un vector\n";
+        cout<<"6. Almacenamiento de pares e impares en arreglos\n";
+        cout<<"7. Producto escalar de dos vectores\n"<<endl;
         cin>>opc2;
         switch (opc2)
         {
