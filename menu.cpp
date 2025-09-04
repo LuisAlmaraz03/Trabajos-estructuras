@@ -1,5 +1,6 @@
 #include<iostream>
 #include "Ejercicios_Recursividad.h"
+#include "Ejercicios_Arreglos.h"
 using namespace std;
 
 int main() {
@@ -36,7 +37,42 @@ int main() {
         }
         break;
     case 2:
-        cout<<"Has seleccionado Algoritmos de Arreglos Unidimensionales"<<endl;
+        cout<<"Has seleccionado Algoritmos de Arreglos Unidimensionales\n";
+        cout<<"1. Ordenand un arreglo de enteros MAX 8\n";
+        cout<<"2. Localizador de carracter\n";
+        cout<<"3. \n";
+        cout<<"4. \n";
+        cout<<"5. \n";
+        cout<<"6. \n";
+        cout<<"7. \n"<<endl;
+        cin>>opc2;
+        switch (opc2)
+        {
+        case 1:
+            Arreglo_1();
+            break;
+        case 2:
+            Arreglo_2();
+            break;
+        case 3:
+            Arreglo_3();
+            break;
+        case 4:
+            Arreglo_4();
+            break;
+        case 5:
+            Arreglo_5();
+            break;
+        case 6:
+            Arreglo_6();
+            break;
+        case 7:
+            Arreglo_7();
+            break;
+        default:
+            cout<<"Opcion no valida"<<endl;
+            break;
+        }
         break;
     default:
         cout<<"Opcion no valida"<<endl;
