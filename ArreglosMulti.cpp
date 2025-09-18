@@ -1,32 +1,76 @@
-#include <iostream> 
-using namespace std;
-#define dia 5
-int main (){
-int mes, anio, mesEsp;
-float suma=0,suma2=0;
-cout<<"Ingresa la cantidad de meses:\n";
-cin>>mes;
-cout<<"Ingresa la cantidad de anios:\n";
-cin>>anio;
-cout<<"Ingresa el mes que deseas promediar (1-12):\n";
-cin>>mesEsp;
-float temp [anio][mes][dia];
-for(int k=0; k<anio; k++){
-    for(int j=0; j<mes; j++){
-        for(int i=0; i<dia; i++){
-            cout<<"Ingresa la temperatura del dia "<<i+1<<" del mes "<<j+1<<" del anio "<<k+1<<":\n";
-            cin>>temp[k][j][i];
-            suma+=temp[k][j][i];
-            if(j==mesEsp-1){
-                suma2+=temp[k][j][i];
-            }
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
 
-            
+using namespace std;
+
+struct Estudiante {
+    string nombre;
+    char sexo; // 'M' para mujer, 'H' para hombre
+    vector<float> examenes;
+};
+
+struct Curso {
+    string nombreCurso;
+    vector<Estudiante> estudiantes;
+};
+
+int main() {
+    int numCursos, numEstudiantes, numExamenes;
+    cout << "Ingrese el numero de cursos: ";
+    cin >> numCursos;
+    vector<Curso> cursos(numCursos);
+
+    for (int i = 0; i < numCursos; ++i) {
+        cout << "\nNombre del curso #" << (i + 1) << ": ";
+        cin.ignore();
+        getline(cin, cursos[i].nombreCurso);
+
+        cout << "Numero de estudiantes en " << cursos[i].nombreCurso << ": ";
+        cin >> numEstudiantes;
+
+        cout << "Numero de examenes en " << cursos[i].nombreCurso << ": ";
+        cin >> numExamenes;
+
+        cursos[i].estudiantes.resize(numEstudiantes);
+
+        for (int j = 0; j < numEstudiantes; ++j) {
+            cout << "\nNombre del estudiante #" << (j + 1) << ": ";
+            cin.ignore();
+            getline(cin, cursos[i].estudiantes[j].nombre);
+
+            cout << "Sexo (M para mujer, H para hombre): ";
+            cin >> cursos[i].estudiantes[j].sexo;
+
+            cursos[i].estudiantes[j].examenes.resize(numExamenes);
+            for (int k = 0; k < numExamenes; ++k) {
+                cout << "Calificacion del examen #" << (k + 1) << ": ";
+                cin >> cursos[i].estudiantes[j].examenes[k];
+            }
         }
-      }
-      cout<<"El promedio anual es: "<<suma/(anio*mes*dia)<<endl;
-                suma=0;
     }
-    cout<<"El promedio del mes "<<mesEsp<<" es: "<<suma2/(anio*dia)<<endl;
-    
+
+    cout << "\n--- Reporte de Cursos ---\n";
+    for (const auto& curso : cursos) {
+        int mujeres = 0;
+        cout << "\nCurso: " << curso.nombreCurso << endl;
+        for (const auto& est : curso.estudiantes) {
+            if (est.sexo == 'M' || est.sexo == 'm')
+                ++mujeres;
+        }
+        cout << "Cantidad de estudiantes mujeres: " << mujeres << endl;
+
+        cout << "Promedio final de cada estudiante:\n";
+        for (const auto& est : curso.estudiantes) {
+            float suma = 0;
+            for (float cal : est.examenes)
+                suma += cal;
+            float promedio = est.examenes.empty() ? 0 : suma / est.examenes.size();
+            cout << fixed << setprecision(2);
+            cout << "  " << est.nombre << ": " << promedio << endl;
+        }
+    }
+
+    return 0;
 }
