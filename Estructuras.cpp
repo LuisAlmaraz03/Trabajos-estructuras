@@ -72,5 +72,52 @@ int main(){
         }
     }
 
-    cout<<"Hola mundo";
+struct datos
+    {
+        string cuenta;
+        int edad;
+        char sexo;
+        float calificacion1;
+        float calificacion2;
+        float promedio;
+    };
+
+    datos alumnos[cantidad];
+    float prom_gen=0;
+    int buscador;
+
+    for(int i=0; i<cantidad; i++){
+    cout<<"Alumno "<< i+1 <<"\nCuenta: ";
+    cin>>alumnos[i].cuenta;
+    cout<<"Edad: ";
+    cin>>alumnos[i].edad;
+    cout<<"Sexo: ";
+    cin>>alumnos[i].sexo;
+    cout<<"Calificacion 1: ";
+    cin>>alumnos[i].calificacion1;
+    cout<<"Calificacion 2: ";
+    cin>>alumnos[i].calificacion2;
+    alumnos[i].promedio=alumnos[i].calificacion1 + alumnos[i].calificacion2; 
+    prom_gen+=alumnos[i].promedio;
+    }
+    prom_gen/= cantidad;
+    cout<<"Edad de las cuentas a buscar:"<<endl;
+    cin>>buscador;
+
+    cout<<"LISTA DE CUENTAS DE MUJERES: ";
+    for (int i = 0; i < cantidad; i++){
+        if (alumnos[i].sexo == 'F' || alumnos[i].sexo=='f'){
+            cout<<"\n*"<<alumnos[i].cuenta<<"\n";
+        }
+    }
+
+    cout<<"LISTA DE CUENTAS APROBATORIAS CON LA EDAD DE "<<buscador<<" anios\n";
+    for (int i = 0; i < cantidad; i++)
+    {
+        if (alumnos[i].promedio>=6 && alumnos[i].edad == buscador){
+            cout<<"*"<<alumnos[i].cuenta<<"\n";
+        } 
+    }
+    
+    cout<<"PROMEDIO GENERAL DEL GRUPO: "<<prom_gen<<endl;
 }
