@@ -24,7 +24,7 @@ int main(){
     int counta=0,countb=0,sumamenores=0,sumamujeres=0,countm=0;
     for(int i=0;i<n;i++){
         cout<<"Nombre:  "<<endl;
-       getline(cin, persona[i].nombre);
+        getline(cin, persona[i].nombre);
         cout<<"Edad:  "<<endl;
         cin>>persona[i].edad;
         cin.ignore();
@@ -34,7 +34,7 @@ int main(){
         cout<<"Sexo:  "<<endl;
         cin>>persona[i].sexo;
         cin.ignore();
-         if(persona[i].sexo=='F'||persona[i].sexo=='f'){
+        if(persona[i].sexo=='F'||persona[i].sexo=='f'){
             countm++;
         }
         cout<<"Calle:  "<<endl;
@@ -72,6 +72,5 @@ int main(){
         }
     }
 
-
-
+    cout<<"Hola mundo";
 }
