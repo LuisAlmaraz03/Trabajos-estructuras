@@ -54,7 +54,7 @@ void ArreglosBi_2(){
     cout<<"La matriz suma es"<<endl;
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
-           cout<<C[i][j]<<" ";
+            cout<<C[i][j]<<" ";
         }
         cout<<endl;
     }
@@ -203,5 +203,5 @@ void ArreglosBi_8(){
     }
     cout<<"La fila donde se encuentra el menor numero es: "<<posm<<endl;
     cout<<"La columna donde se encuentra el mayor numero es: "<<posM<<endl;
-       
+    
 }
