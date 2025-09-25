@@ -4,7 +4,7 @@ using namespace std;
 
 void Arreglo_1() {
     int arr[8];
-    cout << "Ingrese 8 números enteros:" << endl;
+    cout << "Ingrese 8 numeros enteros:" << endl;
     for (int i = 0; i < 8; ++i) {
         cin >> arr[i];
     }

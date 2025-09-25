@@ -74,7 +74,7 @@ void Recusividad_1() {
 
 void Recursividad_2() {
     int N;
-    cout << "Ingresa un número: ";
+    cout << "Ingresa un numero: ";
     cin >> N;
 
 
