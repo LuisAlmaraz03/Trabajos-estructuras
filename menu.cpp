@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     int opc;
     cout<<"Menu de compilados\n";
-    cout<<"1. Algortimos de Recursividad\n";
+    cout<<"1. Algoritmos de Recursividad\n";
     cout<<"2. Algoritmos de Arreglos Unidimensionales\n";
     cout<<"3. Algoritmos de Arreglos Bidimensionales\n";
     cout<<"4. Algoritmos de Estructuras"<<endl;
@@ -42,8 +42,8 @@ int main() {
         break;
     case 2:
         cout<<"Has seleccionado Algoritmos de Arreglos Unidimensionales\n";
-        cout<<"1. Ordenand un arreglo de enteros MAX 8\n";
-        cout<<"2. Localizador de carracter\n";
+        cout<<"1. Ordenar un arreglo de enteros MAX 8\n";
+        cout<<"2. Localizador de caracter\n";
         cout<<"3. Suma de arreglos unidimensionales\n";
         cout<<"4. Promedio y desviacion estandar de calificacion\n";
         cout<<"5. Añadir y recorrer elementos en un vector\n";
