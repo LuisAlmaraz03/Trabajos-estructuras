@@ -12,6 +12,7 @@ bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void BuscarElemento(Nodo *P);
 void agregarUnSoloElementoaListaExistente(Nodo* &P);
 void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P);
+bool eliminarPrimero(Nodo* &P, bool &verificador);
 int main(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
@@ -30,6 +31,7 @@ int main(){
         cout<<"5. Buscar un elemento en la lista"<<endl;
         cout<<"6. Agregar un solo elemento al inicio de la lista existente"<<endl;
         cout<<"7. Agregar un solo elemento al final de la lista existente"<<endl;
+        cout<<"8. Eliminar el primer elemento de la lista"<<endl;
         cin>>opc;
         switch(opc){
             case 1:
@@ -81,6 +83,16 @@ int main(){
                     cout<<"No hay lista creada"<<endl;
                 }
                 break;
+            case 8:
+                if(verificador==true){
+                    eliminarPrimero(P,verificador);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }
+                break;
+            default:
+                cout<<"Opcion no valida"<<endl;
         }
         cout<<"\nDeseas continuar? (s/n)"<<endl;
         cin>>resp;
@@ -205,4 +217,18 @@ void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P){
     cout<<"Ingresa un numero para el siguiente nodo: "<<endl;
     cin>>Q->dato;
     aux->liga=Q;
+}
+
+bool eliminarPrimero(Nodo* &P, bool &verificador){
+    typedef Nodo* PNodo;
+    PNodo aux;
+    aux=P;
+    if(aux->liga==NULL){
+        delete P;
+        P=NULL;
+        return verificador=false;
+    }
+    P=aux->liga;
+    delete aux;
+    return verificador=true;
 }
