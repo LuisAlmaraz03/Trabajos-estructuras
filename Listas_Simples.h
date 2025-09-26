@@ -4,7 +4,7 @@ struct Nodo{
         int dato;
         Nodo* liga;
     };
-
+void menu();
 bool crearListaInicio(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* P);
 bool eliminarUltimo(Nodo* &P, bool &verificador);
@@ -13,7 +13,7 @@ void BuscarElemento(Nodo *P);
 void agregarUnSoloElementoaListaExistente(Nodo* &P);
 void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P);
 bool eliminarPrimero(Nodo* &P, bool &verificador);
-int main(){
+void menu(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
     PNodo Q=nullptr;
