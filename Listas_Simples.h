@@ -143,7 +143,8 @@ bool eliminarUltimo(Nodo* &P, bool &verificador){
         aux=aux->liga;
     }
     delete aux->liga;
-    aux->liga=NULL;    
+    aux->liga=NULL;   
+    return verificador=true; 
 }
 
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
