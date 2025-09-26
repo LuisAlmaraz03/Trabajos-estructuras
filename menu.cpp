@@ -5,6 +5,7 @@
 #include "Estructuras.h"
 #include "ArreglosMulti.h"
 #include "conjuntos.h"
+#include "Listas_Simples.h"
 using namespace std;
 
 int main() {
@@ -15,7 +16,8 @@ int main() {
     cout<<"3. Algoritmos de Arreglos Bidimensionales\n";
     cout<<"4. Algoritmos de Estructuras\n";
     cout<<"5. Algoritmos de Arreglos Multidimensionales\n";
-    cout<<"6. Algoritmos de Conjuntos\n"<<endl;
+    cout<<"6. Algoritmos de Conjuntos\n";
+    cout<<"7. Algoritmos de Listas Simples\n"<<endl;
     cin>>opc;
     switch(opc) {
         int opc2;
@@ -81,7 +83,7 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
-            break;
+        break;
         case 3:
             cout<<"Has seleccionado Algoritmos de Arreglos Bidimensionales\n";
             cout<<"1. Palindromo de una matriz\n";
@@ -143,9 +145,9 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
-            break;
+        break;
             
-            case 5:
+        case 5:
             cout<<"Has seleccionado Algoritmos de Arreglos Multidimensionales\n";
             cout<<"1. Promedio anual y mensual de temperaturas\n";
             cout<<"2. Promedio de calificaciones de estudiantes en varios cursos\n";
@@ -162,8 +164,8 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
-            break;
-            case 6:
+        break;
+        case 6:
             cout<<"Has seleccionado Algoritmos de Conjuntos\n";
             cout<<"1. Operaciones con conjuntos de caracteres\n";
             cout<<"2. Operaciones con conjuntos de cadenas de texto\n";
@@ -180,9 +182,14 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
+        break;
+
+        case 7:
+            cout<<"Has seleccionado Algoritmos de Listas Simples\n";
+            menu();
             break;
         default:
-        cout<<"Opcion no valida"<<endl;
-        break;
+            cout<<"Opcion no valida"<<endl;
+            break;    
     }
 }
