@@ -7,57 +7,83 @@ struct Nodo{
 
 bool crearListaInicio(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* P);
-void eliminarUltimo(Nodo* &P, Nodo* &Q);
+bool eliminarUltimo(Nodo* &P, bool &verificador);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void BuscarElemento(Nodo *P);
 void agregarUnSoloElementoaListaExistente(Nodo* &P);
+void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P);
 int main(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
     PNodo Q=nullptr;
     bool verificador=false;
+    char resp='s';
     int opc;
-    cout<<"Listas Simples"<<endl;
-    cout<<"Que deseas hacer?"<<endl;
-    cout<<"1. Crear lista que agregue los elementos al inicio"<<endl;
-    cout<<"2. Crear lista que agregue los elementos al final"<<endl;
-    cout<<"3. Imprimir lista"<<endl;
-    cout<<"4. Eliminar ultimo elemento de la lista"<<endl;
-    cout<<"5. Buscar un elemento en la lista"<<endl;
-    cout<<"6. Agregar un solo elemento al inicio de la lista existente"<<endl;
-    cin>>opc;
-    switch(opc){
-        case 1:
-            crearListaInicio(P,Q,verificador);
-            
-            break;
-        case 2:
-           crearListaFinal(P,Q,verificador);
-            
-            break;
-        case 3:
-            if(P==nullptr && P->liga==nullptr){
-                cout<<"No hay elementos en la lista"<<endl;
-            }
-            else{
-                imprimirLista(P);
-            }
-            break;
-        case 4:
-            if(verificador==true){
-                eliminarUltimo(P,Q);
-            }   
-            break;
-        case 5:
-            if(verificador==true){
-                BuscarElemento(P);
-            }
-            break;
-        case 6:
-            if(verificador==true){
-                agregarUnSoloElementoaListaExistente(P);
-            }
-            break;
+    while (resp=='s'||resp=='S'){
+        system("cls");
+        cout<<"Listas Simples"<<endl;
+        cout<<"Que deseas hacer?"<<endl;
+        cout<<"1. Crear lista que agregue los elementos al inicio"<<endl;
+        cout<<"2. Crear lista que agregue los elementos al final"<<endl;
+        cout<<"3. Imprimir lista"<<endl;
+        cout<<"4. Eliminar ultimo elemento de la lista"<<endl;
+        cout<<"5. Buscar un elemento en la lista"<<endl;
+        cout<<"6. Agregar un solo elemento al inicio de la lista existente"<<endl;
+        cout<<"7. Agregar un solo elemento al final de la lista existente"<<endl;
+        cin>>opc;
+        switch(opc){
+            case 1:
+                crearListaInicio(P,Q,verificador);
+                break;
+    
+            case 2:
+                crearListaFinal(P,Q,verificador);
+                break;
+    
+            case 3:
+                if(verificador==true){
+                    imprimirLista(P);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }
+                break;
+    
+            case 4:
+                if(verificador==true){
+                    eliminarUltimo(P,verificador);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }  
+                break;
+            case 5:
+                if(verificador==true){
+                    BuscarElemento(P);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }
+                break;
+            case 6:
+                if(verificador==true){
+                    agregarUnSoloElementoaListaExistente(P);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }
+                break;
+            case 7:
+                if(verificador==true){
+                    AgregarUnSoloElementoAlFinalDeLaListaExistente(P);
+                }
+                else{
+                    cout<<"No hay lista creada"<<endl;
+                }
+                break;
+        }
+        cout<<"\nDeseas continuar? (s/n)"<<endl;
+        cin>>resp;
     }
 }
 
@@ -92,15 +118,20 @@ void imprimirLista(Nodo* P){
     }  
 }
 
-void eliminarUltimo(Nodo* &P, Nodo* &Q){
+bool eliminarUltimo(Nodo* &P, bool &verificador){
     typedef Nodo* PNodo;
     PNodo aux;
     aux= P;
+    if(aux->liga==NULL){
+        delete P;
+        P=NULL;
+        return verificador=false;
+    }
     while (aux->liga->liga!=NULL) {
         aux=aux->liga;
     }
     delete aux->liga;
-    aux->liga=NULL;
+    aux->liga=NULL;    
 }
 
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
@@ -125,9 +156,10 @@ bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
         cout<<"Ingresar otro elemento en la lista? (s/n): "<<endl;
         cin>>resp;
     }
+    return verificador=true;
 }
 void BuscarElemento(Nodo *P){
-   typedef Nodo* PNodo;
+    typedef Nodo* PNodo;
     int elemento;
     cout<<"Lista Actual"<<endl;
     imprimirLista(P);
@@ -160,3 +192,17 @@ void agregarUnSoloElementoaListaExistente(Nodo* &P){
     P=Q;
 }
 
+void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P){
+    typedef Nodo* PNodo;
+    PNodo aux;
+    PNodo Q;
+    aux=P;
+    while(aux->liga!=nullptr){
+        aux=aux->liga;
+    }
+    Q=new Nodo;
+    Q->liga=nullptr;
+    cout<<"Ingresa un numero para el siguiente nodo: "<<endl;
+    cin>>Q->dato;
+    aux->liga=Q;
+}
