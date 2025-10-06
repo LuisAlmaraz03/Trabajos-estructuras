@@ -33,6 +33,14 @@ void menu(){
         cout<<"7. Agregar un solo elemento al final de la lista existente"<<endl;
         cout<<"8. Eliminar el primer elemento de la lista"<<endl;
         cin>>opc;
+        while(verificador!=true){
+            cout<<"No hay lista creado, crea una lista para poder relizar la accion seleccionada (1 o 2)\n";
+            cin>>opc;
+            if(opc == 1 || opc == 2)
+            {
+                verificador=true;
+            }
+        }
         switch(opc){
             case 1:
                 crearListaInicio(P,Q,verificador);
@@ -43,53 +51,23 @@ void menu(){
                 break;
     
             case 3:
-                if(verificador==true){
                     imprimirLista(P);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }
                 break;
     
             case 4:
-                if(verificador==true){
-                    eliminarUltimo(P,verificador);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }  
+                eliminarUltimo(P,verificador);
                 break;
             case 5:
-                if(verificador==true){
-                    BuscarElemento(P);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }
+                BuscarElemento(P);
                 break;
             case 6:
-                if(verificador==true){
-                    agregarUnSoloElementoaListaExistente(P);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }
+                agregarUnSoloElementoaListaExistente(P);
                 break;
             case 7:
-                if(verificador==true){
-                    AgregarUnSoloElementoAlFinalDeLaListaExistente(P);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }
+                AgregarUnSoloElementoAlFinalDeLaListaExistente(P);
                 break;
             case 8:
-                if(verificador==true){
-                    eliminarPrimero(P,verificador);
-                }
-                else{
-                    cout<<"No hay lista creada"<<endl;
-                }
+                eliminarPrimero(P,verificador);
                 break;
             default:
                 cout<<"Opcion no valida"<<endl;
