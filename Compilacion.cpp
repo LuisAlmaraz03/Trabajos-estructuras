@@ -8,6 +8,7 @@ struct Nodo{
 void eliminarCoincidencia(Nodo* &P);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* &P);
+void insertarDato(Nodo *&P);
 
 int main(){
     typedef Nodo* PNodo;
@@ -18,7 +19,9 @@ int main(){
     int opc;
     crearListaFinal(P,Q,verificador);
     imprimirLista(P);
-    eliminarCoincidencia(P);
+    insertarDato(P);
+    imprimirLista(P);
+    insertarDato(P);
     imprimirLista(P);
 }
 
@@ -66,6 +69,35 @@ void eliminarCoincidencia(Nodo *&P){
             }
             Q=aux;
             aux=aux->liga;
+        }
+    }
+}
+
+void insertarDato(Nodo *&P)
+{
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P, T;
+    PNodo Q = nullptr;
+    T= new Nodo;
+    cout<<"Valor a ingresar?\n";
+    cin>>T->dato;
+    cout<<"Antes de que valor quires insertar el nuevo dato?\n";
+    cin>>Dseleccion;
+
+    if (P!= nullptr && P->dato == Dseleccion) {
+        T->liga=P;
+        P=T;
+        return;
+    }
+    else{
+        while(aux->liga != nullptr){
+            Q=aux;
+            aux=aux->liga;
+            if(aux->dato == Dseleccion){
+                Q->liga=T;
+                T->liga=aux;
+            }
         }
     }
 }

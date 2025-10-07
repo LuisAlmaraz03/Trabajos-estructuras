@@ -14,6 +14,7 @@ void agregarUnSoloElementoaListaExistente(Nodo* &P);
 void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P);
 bool eliminarPrimero(Nodo* &P, bool &verificador);
 bool eliminarCoincidencia(Nodo *&P, bool &verificador);
+void insertarDatoAntesAOtro(Nodo *&P);
 
 void menu(){
     typedef Nodo* PNodo;
@@ -34,7 +35,8 @@ void menu(){
         cout<<"6. Agregar un solo elemento al inicio de la lista existente\n";
         cout<<"7. Agregar un solo elemento al final de la lista existente\n";
         cout<<"8. Eliminar el primer elemento de la lista\n";
-        cout<<"9. Eliminar un dato especifico de la lista"<<endl;
+        cout<<"9. Eliminar un dato especifico de la lista\n";
+        cout<<"10 Agegar un dato antes de otro"<<endl;
         cin>>opc;
         if(opc == 1 || opc == 2)
             {
@@ -78,6 +80,9 @@ void menu(){
                 break;
             case 9:
                 eliminarCoincidencia(P,verificador);
+                break;
+            case 10:
+                insertarDatoAntesAOtro(P);
                 break;
             default:
                 cout<<"Opcion no valida"<<endl;
@@ -248,5 +253,35 @@ bool eliminarCoincidencia(Nodo *&P, bool &verificador){
             aux=aux->liga;
         }
         return verificador = true;
+    }
+}
+
+void insertarDatoAntesAOtro(Nodo *&P)
+{
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P, T;
+    PNodo Q = nullptr;
+    T= new Nodo;
+    cout<<"Valor a ingresar?\n";
+    cin>>T->dato;
+    cout<<"Antes de que valor quires insertar el nuevo dato?\n";
+    cin>>Dseleccion;
+
+    if (P->dato == Dseleccion) {
+        T->liga=P;
+        P=T;
+        return;
+    }
+    else{
+        while(aux->dato!=Dseleccion && aux->liga != nullptr){
+            Q=aux;
+            aux=aux->liga;
+            if(aux->dato == Dseleccion){
+                Q->liga=T;
+                T->liga=aux;
+                break;
+            }
+        }
     }
 }
