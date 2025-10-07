@@ -13,6 +13,8 @@ void BuscarElemento(Nodo *P);
 void agregarUnSoloElementoaListaExistente(Nodo* &P);
 void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P);
 bool eliminarPrimero(Nodo* &P, bool &verificador);
+bool eliminarCoincidencia(Nodo *&P, bool &verificador);
+
 void menu(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
@@ -22,17 +24,22 @@ void menu(){
     int opc;
     while (resp=='s'||resp=='S'){
         system("cls");
-        cout<<"Listas Simples"<<endl;
-        cout<<"Que deseas hacer?"<<endl;
-        cout<<"1. Crear lista que agregue los elementos al inicio"<<endl;
-        cout<<"2. Crear lista que agregue los elementos al final"<<endl;
-        cout<<"3. Imprimir lista"<<endl;
-        cout<<"4. Eliminar ultimo elemento de la lista"<<endl;
-        cout<<"5. Buscar un elemento en la lista"<<endl;
-        cout<<"6. Agregar un solo elemento al inicio de la lista existente"<<endl;
-        cout<<"7. Agregar un solo elemento al final de la lista existente"<<endl;
-        cout<<"8. Eliminar el primer elemento de la lista"<<endl;
+        cout<<"Listas Simples\n";
+        cout<<"Que deseas hacer?\n";
+        cout<<"1. Crear lista que agregue los elementos al inicio\n";
+        cout<<"2. Crear lista que agregue los elementos al final\n";
+        cout<<"3. Imprimir lista\n";
+        cout<<"4. Eliminar ultimo elemento de la lista\n";
+        cout<<"5. Buscar un elemento en la lista\n";
+        cout<<"6. Agregar un solo elemento al inicio de la lista existente\n";
+        cout<<"7. Agregar un solo elemento al final de la lista existente\n";
+        cout<<"8. Eliminar el primer elemento de la lista\n";
+        cout<<"9. Eliminar un dato especifico de la lista"<<endl;
         cin>>opc;
+        if(opc == 1 || opc == 2)
+            {
+                verificador=true;
+            }
         while(verificador!=true){
             cout<<"No hay lista creado, crea una lista para poder relizar la accion seleccionada (1 o 2)\n";
             cin>>opc;
@@ -68,6 +75,9 @@ void menu(){
                 break;
             case 8:
                 eliminarPrimero(P,verificador);
+                break;
+            case 9:
+                eliminarCoincidencia(P,verificador);
                 break;
             default:
                 cout<<"Opcion no valida"<<endl;
@@ -200,14 +210,43 @@ void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P){
 
 bool eliminarPrimero(Nodo* &P, bool &verificador){
     typedef Nodo* PNodo;
-    PNodo aux;
-    aux=P;
-    if(aux->liga==NULL){
+    if(P->liga==NULL){
         delete P;
         P=NULL;
         return verificador=false;
     }
-    P=aux->liga;
-    delete aux;
+    P=P->liga;
     return verificador=true;
+}
+
+bool eliminarCoincidencia(Nodo *&P, bool &verificador){
+    int eliminado;
+    typedef Nodo* PNodo;
+    PNodo aux = P;
+    PNodo Q = nullptr;
+    cout<<"Valor a eliminar?\n";
+    cin>>eliminado;
+    if(P->dato == eliminado){
+        if(P->liga==nullptr){
+            P=nullptr;
+            return verificador= false;
+        }
+        else{
+            cout<<"Entro en el segundo caso\n";
+            P=P->liga;
+            return verificador = true;
+        }
+    }
+    else{
+        while(aux!=nullptr){
+            if(aux->dato==eliminado){
+                Q->liga=aux->liga;
+                delete aux;
+                break;
+            }
+            Q=aux;
+            aux=aux->liga;
+        }
+        return verificador = true;
+    }
 }
