@@ -5,9 +5,9 @@ struct Nodo{
         Nodo* liga;
 };
 
-void eliminarCoincidencia(Nodo *P);
+void eliminarCoincidencia(Nodo* &P);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
-void imprimirLista(Nodo* P);
+void imprimirLista(Nodo* &P);
 
 int main(){
     typedef Nodo* PNodo;
@@ -47,32 +47,30 @@ bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
     return verificador=true;
 }
 
-void eliminarCoincidencia(Nodo *P){
+void eliminarCoincidencia(Nodo *&P){
     int eliminado;
     typedef Nodo* PNodo;
-    PNodo aux;
-    PNodo Q;
-    aux=P;
+    PNodo aux = P;
+    PNodo Q = nullptr;
     cout<<"Valor a eliminar?\n";
     cin>>eliminado;
-    if(aux->dato==eliminado){
-        delete aux;
-        P=aux->liga;
-        cout<<"si entro"<<P->dato<<'\n';
-     }
-    else {
-    while (aux->dato!=eliminado){
-        Q=aux;
-        aux=aux->liga;
-    if(aux->dato==eliminado){
-            Q->liga=aux->liga;
-            delete aux;
-        }
+    if (aux->liga != nullptr && aux->dato == eliminado) {
+        P=P->liga;
     }
+    else{
+        while(aux!=nullptr){
+            if(aux->dato==eliminado){
+                Q->liga=aux->liga;
+                delete aux;
+                break;
+            }
+            Q=aux;
+            aux=aux->liga;
+        }
     }
 }
 
-void imprimirLista(Nodo* P){
+void imprimirLista(Nodo* &P){
     typedef Nodo* PNodo;
     cout << "Elementos de la lista:" << endl;
     PNodo aux = P;
