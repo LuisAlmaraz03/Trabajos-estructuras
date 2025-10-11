@@ -9,6 +9,7 @@ void eliminarCoincidencia(Nodo* &P);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* &P);
 void insertarDato(Nodo *&P);
+void insertarDatoDespuesAOtro(Nodo* &P);
 
 int main(){
     typedef Nodo* PNodo;
@@ -19,9 +20,7 @@ int main(){
     int opc;
     crearListaFinal(P,Q,verificador);
     imprimirLista(P);
-    insertarDato(P);
-    imprimirLista(P);
-    insertarDato(P);
+    insertarDatoDespuesAOtro(P);
     imprimirLista(P);
 }
 
@@ -99,6 +98,32 @@ void insertarDato(Nodo *&P)
                 T->liga=aux;
             }
         }
+    }
+}
+
+void insertarDatoDespuesAOtro(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo aux, Q;
+    int encontrar=0;
+    aux=P;
+    Q= new Nodo;
+    cout<<"Ingresa el nuevo dato\n";
+    cin>>Q->dato;
+    cout<<"Despues de que dato lo ingresaras?\n";
+    cin>>encontrar;
+    while (aux!=nullptr && aux->dato!=encontrar){
+        aux=aux->liga;
+    }
+    if (aux==nullptr){
+        cout<<"No existe "<<encontrar<<" en la lista\n";
+    }
+    else if(aux->liga==nullptr && aux==P){
+        P->liga=Q;
+        Q->liga=nullptr;
+    }
+    else{
+        Q->liga=aux->liga;
+        aux->liga=Q;
     }
 }
 
