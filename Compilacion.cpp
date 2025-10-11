@@ -1,28 +1,31 @@
 #include<iostream>
 using namespace std;
-struct Nodo{
+struct NodoDoble{
         int dato;
-        Nodo* ligaD;
-        Nodo* ligaI;
+        NodoDoble* ligaD;
+        NodoDoble* ligaI;
 };
 
-bool crarListaFinal(Nodo* &P, Nodo* &Q, bool &verificador);
-void imprimirLista(Nodo* P);
+bool crarListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador);
+void imprimirLista(NodoDoble* P);
+bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador);
 
 int main(){
-    typedef Nodo* PNodo;
+    typedef NodoDoble* PNodo;
     PNodo P=nullptr;
     PNodo Q=nullptr;
     bool verificador=false;
     char resp='s';
     crarListaFinal(P,Q,verificador);
     imprimirLista(P);
+    eliminarUltimo(P,Q,verificador);
+    imprimirLista(P);
 }
-bool crarListaFinal(Nodo* &P, Nodo* &Q, bool &verificador){
-    typedef Nodo* PNodo;
+bool crarListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador){
+    typedef NodoDoble* PNodo;
     PNodo aux;
     char resp;
-    P= new Nodo;
+    P= new NodoDoble;
     P->ligaD=nullptr;
     P->ligaI=nullptr;
     cout<<"Ingresa un dato para el primer nodo\n";
@@ -33,7 +36,7 @@ bool crarListaFinal(Nodo* &P, Nodo* &Q, bool &verificador){
     while (resp=='S' || resp=='s')
     {
         aux=Q;
-        Q=new Nodo;
+        Q=new NodoDoble;
         Q->ligaI=aux;
         Q->ligaD=nullptr;
         cout<<"Ingresa el nuevo dato\n";
@@ -44,12 +47,30 @@ bool crarListaFinal(Nodo* &P, Nodo* &Q, bool &verificador){
     }
     return verificador=true;   
 }
-void imprimirLista(Nodo* P){
-    typedef Nodo* PNodo;
+void imprimirLista(NodoDoble* P){
+    typedef NodoDoble* PNodo;
     cout << "Elementos de la lista:" << endl;
     PNodo aux = P;
     while(aux != nullptr){
         cout << aux->dato << " ";
         aux = aux->ligaD;
     }  
+}
+
+bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador){
+    typedef NodoDoble* PNodo;
+    PNodo aux;
+    if (Q==P){
+        delete P;
+        P=nullptr;
+        Q=nullptr;
+        return verificador=false;
+    }
+    else{
+        aux=Q->ligaI;
+        aux->ligaD= nullptr;
+        delete Q;
+        Q=aux;
+        return verificador=true;
+    }
 }

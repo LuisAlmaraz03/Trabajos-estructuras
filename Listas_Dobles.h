@@ -8,6 +8,7 @@ struct NodoDoble{
 void menuListDoble();
 void imprimirLista(NodoDoble* P);
 bool crearListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador);
+bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador);
 
 void menuListDoble(){
     typedef NodoDoble* PNodo;
@@ -60,7 +61,7 @@ void menuListDoble(){
                 break;
     
             case 4:
-                //eliminarUltimo(P,verificador);
+                eliminarUltimo(P,Q,verificador);
                 break;
 
             default:
@@ -106,4 +107,21 @@ void imprimirLista(NodoDoble* P){
         cout << aux->dato << " ";
         aux = aux->ligaD;
     }  
+}
+bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador){
+    typedef NodoDoble* PNodo;
+    PNodo aux;
+    if (Q==P){
+        delete P;
+        P=nullptr;
+        Q=nullptr;
+        return verificador=false;
+    }
+    else{
+        aux=Q->ligaI;
+        aux->ligaD= nullptr;
+        delete Q;
+        Q=aux;
+        return verificador=true;
+    }
 }
