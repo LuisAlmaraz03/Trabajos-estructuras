@@ -9,14 +9,9 @@ void eliminarCoincidencia(Nodo* &P);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* &P);
 void insertarDato(Nodo *&P);
-<<<<<<< HEAD
-void insertarDatoDespuesAOtro(Nodo* &P);
-void eliminarAnteriorAOtro(Nodo *&P);
-=======
 void insertarDatoDespuesdeOtro(Nodo *&P);
 void eliminarNodoAntesdeOtro(Nodo *&P);
 void eliminarNodoDespuesDeOtro(Nodo *&P);
->>>>>>> dabe2f75fde5c7f0c30207f5dc3f756324766ba0
 
 int main(){
     typedef Nodo* PNodo;
@@ -27,12 +22,8 @@ int main(){
     int opc;
     crearListaFinal(P,Q,verificador);
     imprimirLista(P);
-<<<<<<< HEAD
-    eliminarAnteriorAOtro(P);
-=======
     eliminarNodoDespuesDeOtro(P);
     //eliminarNodoAntesdeOtro(P);
->>>>>>> dabe2f75fde5c7f0c30207f5dc3f756324766ba0
     imprimirLista(P);
     //eliminarCoincidencia(P);
     //imprimirLista(P);
@@ -120,32 +111,6 @@ void insertarDato(Nodo *&P)
     }
 }
 
-void insertarDatoDespuesAOtro(Nodo *&P){
-    typedef Nodo* PNodo;
-    PNodo aux, Q;
-    int encontrar=0;
-    aux=P;
-    Q= new Nodo;
-    cout<<"Ingresa el nuevo dato\n";
-    cin>>Q->dato;
-    cout<<"Despues de que dato lo ingresaras?\n";
-    cin>>encontrar;
-    while (aux!=nullptr && aux->dato!=encontrar){
-        aux=aux->liga;
-    }
-    if (aux==nullptr){
-        cout<<"No existe "<<encontrar<<" en la lista\n";
-    }
-    else if(aux->liga==nullptr && aux==P){
-        P->liga=Q;
-        Q->liga=nullptr;
-    }
-    else{
-        Q->liga=aux->liga;
-        aux->liga=Q;
-    }
-}
-
 void imprimirLista(Nodo* &P){
     typedef Nodo* PNodo;
     cout << "Elementos de la lista:" << endl;
@@ -155,35 +120,6 @@ void imprimirLista(Nodo* &P){
         aux = aux->liga;
     }  
 }
-<<<<<<< HEAD
-
-void eliminarAnteriorAOtro(Nodo *&P){
-    typedef Nodo* PNodo;
-    PNodo aux=P, Q=nullptr, T;
-    int encontrar = 0;
-    cout<<"Ingresa antes de cual dato quires eliminar\n";
-    cin>>encontrar;
-    while (aux!=nullptr && aux->dato!=encontrar){
-        T=Q;
-        Q=aux;
-        aux=aux->liga;
-    }
-    if (aux==nullptr){
-        cout<<"No existe "<<encontrar<<" en la lista\n"<<endl;
-    }
-    else if(aux==P){
-        cout<<"No existe un dato anterior al primer elemento\n"<<endl;
-    }
-    else if(aux==P->liga){
-        P=aux;
-        delete Q;
-    }
-    else{
-        T->liga=aux;
-        delete Q;
-    }
-}
-=======
 void insertarDatoDespuesdeOtro(Nodo *&P)
 {
     int Dseleccion;
@@ -263,4 +199,3 @@ void eliminarNodoDespuesDeOtro(Nodo *&P){
             }
     }
 }
->>>>>>> dabe2f75fde5c7f0c30207f5dc3f756324766ba0
