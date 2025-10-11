@@ -9,6 +9,7 @@ void menuListDoble();
 void imprimirLista(NodoDoble* P);
 bool crearListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador);
 bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador);
+bool eliminarCoincidencia(NodoDoble* &P,NodoDoble* &Q,bool &veficador);
 
 void menuListDoble(){
     typedef NodoDoble* PNodo;
@@ -21,47 +22,38 @@ void menuListDoble(){
         system("cls");
         cout<<"Listas Simples\n";
         cout<<"Que deseas hacer?\n";
-        cout<<"1. Crear lista que agregue los elementos al inicio\n";
-        cout<<"2. Crear lista que agregue los elementos al final\n";
-        cout<<"3. Imprimir lista\n";
-        cout<<"4. Eliminar ultimo elemento de la lista\n";
-        cout<<"5. Buscar un elemento en la lista\n";
-        cout<<"6. Agregar un solo elemento al inicio de la lista existente\n";
-        cout<<"7. Agregar un solo elemento al final de la lista existente\n";
-        cout<<"8. Eliminar el primer elemento de la lista\n";
-        cout<<"9. Eliminar un dato especifico de la lista\n";
-        cout<<"10 Agegar un dato antes de otro\n";
-        cout<<"11 Agregar un dato despues de otro\n";
-        cout<<"12 Eliminar un dato antes de otro\n";
-        cout<<"13 Eliminar un dato despues de otro"<<endl;
+        cout<<"1. Crear lista que agregue los elementos al final\n";
+        cout<<"2. Imprimir lista\n";
+        cout<<"3. Eliminar ultimo elemento de la lista\n";
+        cout<<"4. Eliminar un elemento especifico en la lista\n";
         cin>>opc;
-        if(opc == 1 || opc == 2)
+        if(opc == 1)
             {
                 verificador=true;
             }
         while(verificador!=true){
-            cout<<"No hay lista creado, crea una lista para poder relizar la accion seleccionada (1 o 2)\n";
+            cout<<"No hay lista creado, crea una lista para poder relizar la accion seleccionada (1)\n";
             cin>>opc;
-            if(opc == 1 || opc == 2)
+            if(opc == 1)
             {
                 verificador=true;
             }
         }
         switch(opc){
             case 1:
-                //crearListaInicio(P,Q,verificador);
-                break;
-    
-            case 2:
                 crearListaFinal(P,Q,verificador);
                 break;
     
-            case 3:
+            case 2:
                 imprimirLista(P);
                 break;
     
-            case 4:
+            case 3:
                 eliminarUltimo(P,Q,verificador);
+                break;
+    
+            case 4:
+                eliminarCoincidencia(P,Q,verificador);
                 break;
 
             default:
@@ -124,4 +116,40 @@ bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador){
         Q=aux;
         return verificador=true;
     }
+}
+bool eliminarCoincidencia(NodoDoble* &P,NodoDoble* &Q,bool &veficador){
+    typedef NodoDoble* PNodo;
+    int eliminado;
+    PNodo aux;
+    aux=P;
+    cout<<"Ingresa el elemento que quieres eliminar\n";
+    cin>>eliminado;
+    while (aux!=nullptr && aux->dato!=eliminado){
+        aux=aux->ligaD;
+    }
+    if(aux==nullptr){
+        cout<<eliminado<<" No existe en la lista"<<endl;
+    }
+    else if (aux==P && P==Q){
+        delete aux;
+        P=nullptr;
+        Q=nullptr;
+        return veficador=false;
+    }
+    else if(aux==P){
+        P=P->ligaD;
+        P->ligaI=nullptr;
+        delete aux;
+    }
+    else if(aux==Q){
+        Q=Q->ligaI;
+        Q->ligaD=nullptr;
+        delete aux;
+    }
+    else{
+        aux->ligaI->ligaD=aux->ligaD;
+        aux->ligaD->ligaI=aux->ligaI;
+        delete aux;
+    }
+    return veficador=true;
 }

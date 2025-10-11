@@ -9,6 +9,7 @@ struct NodoDoble{
 bool crarListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador);
 void imprimirLista(NodoDoble* P);
 bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador);
+bool eliminarCoincidencia(NodoDoble* &P,NodoDoble* &Q,bool &veficador);
 
 int main(){
     typedef NodoDoble* PNodo;
@@ -18,7 +19,7 @@ int main(){
     char resp='s';
     crarListaFinal(P,Q,verificador);
     imprimirLista(P);
-    eliminarUltimo(P,Q,verificador);
+    eliminarCoincidencia(P,Q,verificador);
     imprimirLista(P);
 }
 bool crarListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador){
@@ -73,4 +74,41 @@ bool eliminarUltimo(NodoDoble* &P ,NodoDoble* &Q, bool &verificador){
         Q=aux;
         return verificador=true;
     }
+}
+
+bool eliminarCoincidencia(NodoDoble* &P,NodoDoble* &Q,bool &veficador){
+    typedef NodoDoble* PNodo;
+    int eliminado;
+    PNodo aux;
+    aux=P;
+    cout<<"Ingresa el elemento que quieres eliminar\n";
+    cin>>eliminado;
+    while (aux!=nullptr && aux->dato!=eliminado){
+        aux=aux->ligaD;
+    }
+    if(aux==nullptr){
+        cout<<eliminado<<" No existe en la lista"<<endl;
+    }
+    else if (aux==P && P==Q){
+        delete aux;
+        P=nullptr;
+        Q=nullptr;
+        return veficador=false;
+    }
+    else if(aux==P){
+        P=P->ligaD;
+        P->ligaI=nullptr;
+        delete aux;
+    }
+    else if(aux==Q){
+        Q=Q->ligaI;
+        Q->ligaD=nullptr;
+        delete aux;
+    }
+    else{
+        aux->ligaI->ligaD=aux->ligaD;
+        aux->ligaD->ligaI=aux->ligaI;
+        delete aux;
+    }
+    return veficador=true;
 }
