@@ -16,6 +16,7 @@ bool eliminarPrimero(Nodo* &P, bool &verificador);
 bool eliminarCoincidencia(Nodo *&P, bool &verificador);
 void insertarDatoAntesAOtro(Nodo *&P);
 void insertarDatoDespuesAOtro(Nodo *&P);
+void eliminarAnteriorAOtro(Nodo *&P);
 
 void menu(){
     typedef Nodo* PNodo;
@@ -38,7 +39,8 @@ void menu(){
         cout<<"8. Eliminar el primer elemento de la lista\n";
         cout<<"9. Eliminar un dato especifico de la lista\n";
         cout<<"10 Agegar un dato antes de otro\n";
-        cout<<"11 Agregar un dato despues de otro"<<endl;
+        cout<<"11 Agregar un dato despues de otro\n";
+        cout<<"12 Eliminar un dato antes de otro\n";
         cin>>opc;
         if(opc == 1 || opc == 2)
             {
@@ -89,6 +91,9 @@ void menu(){
             case 11:
                 insertarDatoDespuesAOtro(P);
                 break;
+            case 12:
+                eliminarAnteriorAOtro(P);
+                break;
             default:
                 cout<<"Opcion no valida"<<endl;
         }
@@ -117,7 +122,6 @@ bool crearListaInicio(Nodo* &P, Nodo* &Q,bool &verificador){
     }
     return verificador=true;
 }
-
 void imprimirLista(Nodo* P){
     typedef Nodo* PNodo;
     cout << "Elementos de la lista:" << endl;
@@ -127,7 +131,6 @@ void imprimirLista(Nodo* P){
         aux = aux->liga;
     }  
 }
-
 bool eliminarUltimo(Nodo* &P, bool &verificador){
     typedef Nodo* PNodo;
     PNodo aux;
@@ -144,7 +147,6 @@ bool eliminarUltimo(Nodo* &P, bool &verificador){
     aux->liga=NULL;   
     return verificador=true; 
 }
-
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
     typedef Nodo* PNodo;
     char resp;
@@ -202,7 +204,6 @@ void agregarUnSoloElementoaListaExistente(Nodo* &P){
     cin>>Q->dato;
     P=Q;
 }
-
 void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P){
     typedef Nodo* PNodo;
     PNodo aux;
@@ -217,7 +218,6 @@ void AgregarUnSoloElementoAlFinalDeLaListaExistente(Nodo* &P){
     cin>>Q->dato;
     aux->liga=Q;
 }
-
 bool eliminarPrimero(Nodo* &P, bool &verificador){
     typedef Nodo* PNodo;
     if(P->liga==NULL){
@@ -228,7 +228,6 @@ bool eliminarPrimero(Nodo* &P, bool &verificador){
     P=P->liga;
     return verificador=true;
 }
-
 bool eliminarCoincidencia(Nodo *&P, bool &verificador){
     int eliminado;
     typedef Nodo* PNodo;
@@ -260,7 +259,6 @@ bool eliminarCoincidencia(Nodo *&P, bool &verificador){
         return verificador = true;
     }
 }
-
 void insertarDatoAntesAOtro(Nodo *&P)
 {
     int Dseleccion;
@@ -290,7 +288,6 @@ void insertarDatoAntesAOtro(Nodo *&P)
         }
     }
 }
-
 void insertarDatoDespuesAOtro(Nodo *&P){
     typedef Nodo* PNodo;
     PNodo aux, Q;
@@ -314,5 +311,31 @@ void insertarDatoDespuesAOtro(Nodo *&P){
     else{
         Q->liga=aux->liga;
         aux->liga=Q;
+    }
+}
+void eliminarAnteriorAOtro(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo aux=P, Q=nullptr, T;
+    int encontrar = 0;
+    cout<<"Ingresa antes de cual dato quires eliminar\n";
+    cin>>encontrar;
+    while (aux!=nullptr && aux->dato!=encontrar){
+        T=Q;
+        Q=aux;
+        aux=aux->liga;
+    }
+    if (aux==nullptr){
+        cout<<"No existe "<<encontrar<<" en la lista\n"<<endl;
+    }
+    else if(aux==P){
+        cout<<"No existe un dato anterior al primer elemento\n"<<endl;
+    }
+    else if(aux==P->liga){
+        P=aux;
+        delete Q;
+    }
+    else{
+        T->liga=aux;
+        delete Q;
     }
 }

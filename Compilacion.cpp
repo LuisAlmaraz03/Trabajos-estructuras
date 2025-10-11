@@ -10,6 +10,7 @@ bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* &P);
 void insertarDato(Nodo *&P);
 void insertarDatoDespuesAOtro(Nodo* &P);
+void eliminarAnteriorAOtro(Nodo *&P);
 
 int main(){
     typedef Nodo* PNodo;
@@ -20,7 +21,7 @@ int main(){
     int opc;
     crearListaFinal(P,Q,verificador);
     imprimirLista(P);
-    insertarDatoDespuesAOtro(P);
+    eliminarAnteriorAOtro(P);
     imprimirLista(P);
 }
 
@@ -135,4 +136,31 @@ void imprimirLista(Nodo* &P){
         cout << aux->dato << " ";
         aux = aux->liga;
     }  
+}
+
+void eliminarAnteriorAOtro(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo aux=P, Q=nullptr, T;
+    int encontrar = 0;
+    cout<<"Ingresa antes de cual dato quires eliminar\n";
+    cin>>encontrar;
+    while (aux!=nullptr && aux->dato!=encontrar){
+        T=Q;
+        Q=aux;
+        aux=aux->liga;
+    }
+    if (aux==nullptr){
+        cout<<"No existe "<<encontrar<<" en la lista\n"<<endl;
+    }
+    else if(aux==P){
+        cout<<"No existe un dato anterior al primer elemento\n"<<endl;
+    }
+    else if(aux==P->liga){
+        P=aux;
+        delete Q;
+    }
+    else{
+        T->liga=aux;
+        delete Q;
+    }
 }
