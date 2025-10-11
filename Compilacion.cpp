@@ -9,6 +9,9 @@ void eliminarCoincidencia(Nodo* &P);
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* &P);
 void insertarDato(Nodo *&P);
+void insertarDatoDespuesdeOtro(Nodo *&P);
+void eliminarNodoAntesdeOtro(Nodo *&P);
+void eliminarNodoDespuesDeOtro(Nodo *&P);
 
 int main(){
     typedef Nodo* PNodo;
@@ -19,10 +22,16 @@ int main(){
     int opc;
     crearListaFinal(P,Q,verificador);
     imprimirLista(P);
-    insertarDato(P);
+    eliminarNodoDespuesDeOtro(P);
+    //eliminarNodoAntesdeOtro(P);
     imprimirLista(P);
-    insertarDato(P);
-    imprimirLista(P);
+    //eliminarCoincidencia(P);
+    //imprimirLista(P);
+    //insertarDatoDespuesdeOtro(P);
+    //insertarDato(P);
+    //imprimirLista(P);
+    //insertarDato(P);
+    //imprimirLista(P);
 }
 
 bool crearListaFinal(Nodo* &P, Nodo* &Q,bool &verificador){
@@ -110,4 +119,83 @@ void imprimirLista(Nodo* &P){
         cout << aux->dato << " ";
         aux = aux->liga;
     }  
+}
+void insertarDatoDespuesdeOtro(Nodo *&P)
+{
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P, T;
+    T= new Nodo;
+    cout<<"Valor a ingresar?\n";
+    cin>>T->dato;
+    cout<<"Despues de que valor quires insertar el nuevo dato?\n";
+    cin>>Dseleccion;
+
+    while(aux != nullptr){
+        if(aux->dato == Dseleccion){
+            T->liga=aux->liga;
+            aux->liga=T;
+            break;
+        }
+        aux=aux->liga;
+    }
+}
+void eliminarNodoAntesdeOtro(Nodo *&P)
+{
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P, Q = nullptr, R = nullptr;
+    cout<<"Valor antes del cual se eliminara el nodo?\n";
+    cin>>Dseleccion;
+
+    if (P != nullptr && P->dato == Dseleccion) {
+        cout << "No hay nodo antes del primer nodo." << endl;
+        return;
+    }
+    while(aux != nullptr && aux->dato != Dseleccion){
+        R = Q;
+        Q = aux;
+        aux = aux->liga;
+    }
+    if (aux != nullptr && Q != nullptr) {
+        if (R == nullptr) {
+            P = aux; 
+        } else {
+            R->liga = aux; 
+        }
+        delete Q; 
+    } else {
+        cout << "No se encontro el valor especificado en la lista." << endl;
+    }
+}
+void eliminarNodoDespuesDeOtro(Nodo *&P){
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P, Q=nullptr, R=nullptr;
+    cout<<"Ingresa el valor a eliminar"<<endl;
+    cin>>Dseleccion;
+    if(P != nullptr && P->dato == Dseleccion){
+        Q= P->liga;
+        if(Q != nullptr){
+            P->liga = Q->liga;
+            delete Q;
+        }
+        else{
+            cout<<"No hay nodo despues del primer nodo"<<endl;
+        }
+}
+    while(aux != nullptr && aux->dato != Dseleccion){
+            R=aux;
+            aux=aux->liga;
+        }
+        if(R != nullptr){
+            R=aux->liga;
+            if(R != nullptr){
+                aux->liga=R->liga;
+                delete R;
+            }
+            else{
+                cout<<"No hay nodo despues de este nodo"<<endl;
+            }
+    }
 }
