@@ -4,7 +4,7 @@ struct Nodo{
         int dato;
         Nodo* liga;
     };
-void menu();
+void menuListSimple();
 bool crearListaInicio(Nodo* &P, Nodo* &Q,bool &verificador);
 void imprimirLista(Nodo* P);
 bool eliminarUltimo(Nodo* &P, bool &verificador);
@@ -21,7 +21,7 @@ void insertarDatoDespuesdeOtro(Nodo *&P);
 void eliminarNodoAntesdeOtro(Nodo *&P);
 void eliminarNodoDespuesDeOtro(Nodo *&P);
 
-void menu(){
+void menuListSimple(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
     PNodo Q=nullptr;

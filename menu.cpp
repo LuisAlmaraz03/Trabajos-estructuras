@@ -6,6 +6,7 @@
 #include "ArreglosMulti.h"
 #include "conjuntos.h"
 #include "Listas_Simples.h"
+#include "Listas_Dobles.h"
 using namespace std;
 
 int main() {
@@ -17,7 +18,8 @@ int main() {
     cout<<"4. Algoritmos de Estructuras\n";
     cout<<"5. Algoritmos de Arreglos Multidimensionales\n";
     cout<<"6. Algoritmos de Conjuntos\n";
-    cout<<"7. Algoritmos de Listas Simples\n"<<endl;
+    cout<<"7. Algoritmos de Listas Simples\n";
+    cout<<"8. Algoritmos de Listas Doblemente Ligadas"<<endl;
     cin>>opc;
     switch(opc) {
         int opc2;
@@ -45,7 +47,7 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
-            break;
+        break;
         case 2:
             cout<<"Has seleccionado Algoritmos de Arreglos Unidimensionales\n";
             cout<<"1. Ordenar un arreglo de enteros MAX 8\n";
@@ -145,8 +147,7 @@ int main() {
                 cout<<"Opcion no valida"<<endl;
                 break;
             }
-        break;
-            
+        break;   
         case 5:
             cout<<"Has seleccionado Algoritmos de Arreglos Multidimensionales\n";
             cout<<"1. Promedio anual y mensual de temperaturas\n";
@@ -183,11 +184,14 @@ int main() {
                 break;
             }
         break;
-
         case 7:
             cout<<"Has seleccionado Algoritmos de Listas Simples\n";
-            menu();
-            break;
+            menuListSimple();
+        break;
+        case 8:
+            cout<<"Has seleccionado Algoritmos de Listas Doblemente Ligadas\n";
+            menuListDoble();
+        break;
         default:
             cout<<"Opcion no valida"<<endl;
             break;    
