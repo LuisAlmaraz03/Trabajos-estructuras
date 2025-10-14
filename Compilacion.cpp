@@ -13,7 +13,7 @@ bool eliminarCoincidencia(NodoDoble* &P,NodoDoble* &Q,bool &veficador);
 void eliminarAntesDeOtro(NodoDoble* &P, NodoDoble* &Q);
 void insertarAlInicio(NodoDoble* &P);
 void insertarDespuesDeOtro(NodoDoble* &P, NodoDoble* &Q);
-void palindromo ();
+void palindromo();
 
 int main(){
     typedef NodoDoble* PNodo;
@@ -21,12 +21,7 @@ int main(){
     PNodo Q=nullptr;
     bool verificador=false;
     char resp='s';
-    crarListaFinal(P,Q,verificador);
-    imprimirLista(P);
-    eliminarAntesDeOtro(P,Q);
-    imprimirLista(P);
-    insertarDespuesDeOtro(P,Q);
-    imprimirLista(P);
+    palindromo();
 }
 bool crarListaFinal(NodoDoble* &P, NodoDoble* &Q, bool &verificador){
     typedef NodoDoble* PNodo;
@@ -191,5 +186,46 @@ void insertarDespuesDeOtro(NodoDoble* &P, NodoDoble* &Q){
         aux->ligaD->ligaI=T;
         aux->ligaD=T;
         T->ligaI=aux;
+    }
+}
+
+void palindromo(){
+    struct NodoLetra
+    {
+        char letra;
+        NodoLetra* ligaD;
+        NodoLetra* ligaI;
+    };
+    
+    typedef NodoLetra* PNodo;
+    PNodo P,Q,aux,auxF;
+    char continuar='s';
+    P=new NodoLetra;
+    cout<<"Ingresa la primer letra\n";
+    cin>>P->letra;
+    P->ligaI=nullptr;
+    Q=P;
+    while(continuar=='s' || continuar=='S'){ //Creando la palabra
+        aux=Q;
+        Q=new NodoLetra;
+        cout<<"Ingresa la siguiente letra sin espacios\n";
+        cin>>Q->letra;
+        aux->ligaD=Q;
+        Q->ligaI=aux;
+        Q->ligaD=nullptr;
+        cout<<"Agregar otra letra?[S/N]\n";
+        cin>>continuar;
+    }
+
+    aux=P; //aux toma el la primer letra de la palabra
+    auxF=Q; //auxF toma el valor de la ultima letra de la palabra
+    while (aux!=nullptr && aux->letra==auxF->letra){//Comienza a compara las letras de inicio a fin
+        aux=aux->ligaD;
+        auxF=auxF->ligaI;
+    }
+    if(aux==nullptr){
+        cout<<"La palabra es un palindromo\n";
+    }else{
+        cout<<"La palabra no es un palindromo\n";
     }
 }
