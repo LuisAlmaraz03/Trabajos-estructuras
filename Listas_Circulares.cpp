@@ -77,13 +77,47 @@ void BuscarInformacion(Nodo *P){
         cout<<"El elemento no fue encontrado en la lista"<<endl;
 }
 }
+void insertarDatoAntesAOtro(Nodo *&P){
+    if (P == nullptr) {
+        cout << "La lista esta vacia. No se puede insertar antes de otro nodo." << endl;
+        return;
+    }
+    int Dseleccion;
+    typedef Nodo* PNodo;
+    PNodo aux = P,T;
+    PNodo Q = nullptr;
+    Q= new Nodo;
+    cout<<"Valor a ingresar?\n";
+    cin>>Q->dato;
+    cout<<"Antes de que valor quires insertar el nuevo dato?\n";
+    cin>>Dseleccion;
+
+    while(aux->liga!= P){
+        T=aux;
+        aux=aux->liga;
+        if(aux->dato == Dseleccion){
+            T->liga=Q;
+            Q->liga=aux;
+            return;
+        }
+    }
+    if (P->dato == Dseleccion) {
+        Q->liga=P;
+        T->liga=Q;
+        P=Q;
+    }
+    else{
+        cout << "El valor especificado no se encontro en la lista." << endl;
+    }
+}
+
+
 int main(){
     typedef Nodo* PNodo;
     PNodo P=nullptr;
     PNodo Q=nullptr;
     crearListaporElFinal(P,Q);
     imprimirListaCircular(P);
-    eliminarPrimero(P,Q);
+    insertarDatoAntesAOtro(P);
     imprimirListaCircular(P);
-    BuscarInformacion(P);
 }
