@@ -102,12 +102,74 @@ void insertarDatoAntesAOtro(Nodo *&P){
         }
     }
     if (P->dato == Dseleccion) {
+        T=aux;
+        aux=P;
         Q->liga=P;
         T->liga=Q;
         P=Q;
     }
     else{
         cout << "El valor especificado no se encontro en la lista." << endl;
+    }
+}
+void insertarAlPrincipio(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo Q= new Nodo;
+    PNodo aux= P, T;
+    cout<<"Ingresa el nuevo dato para el nodo al principio: "<<endl;
+    cin>>Q->dato;
+    while(aux->liga!= P){
+        T=aux;
+        aux=aux->liga;
+    }
+    T=aux;
+    aux=P;
+    Q->liga=P;
+    T->liga=Q;
+    P=Q;
+}
+void insertarAlFinal(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo Q= new Nodo;
+    PNodo aux= P;
+    cout<<"Ingresa el nuevo dato para el nodo al final: "<<endl;
+    cin>>Q->dato;
+    while(aux->liga!= P){
+        aux=aux->liga;
+    }
+    aux->liga=Q;
+    Q->liga=P;
+}
+void eliminarEspecifico(Nodo *&P){
+    typedef Nodo* PNodo;
+    PNodo aux= P, T;
+    int elemento;
+    cout<<"Ingresa el elemento a eliminar: "<<endl;
+    cin>>elemento;
+    if (P==nullptr){
+        cout<<"La lista esta vacia"<<endl;
+        return;
+    }
+    while(aux->liga!= P){
+        T=aux;
+        aux=aux->liga;
+        if(aux->dato==elemento){
+            T->liga=aux->liga;
+            delete aux;
+            return;
+        }
+    }
+    if (P->dato==elemento){
+        T=aux;
+        aux=P;
+        P=P->liga;
+        T->liga=P;
+        aux->liga==aux?P=nullptr:0;
+        delete aux;
+        return;
+    }
+    else{
+        cout<<"Elemento no encontrado en la lista."<<endl;
     }
 }
 
@@ -118,6 +180,6 @@ int main(){
     PNodo Q=nullptr;
     crearListaporElFinal(P,Q);
     imprimirListaCircular(P);
-    insertarDatoAntesAOtro(P);
+    eliminarEspecifico(P);
     imprimirListaCircular(P);
 }
