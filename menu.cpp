@@ -8,6 +8,7 @@
 #include "Listas_Simples.h"
 #include "Listas_Dobles.h"
 #include "Listas_Circulares.h"
+#include "Pilas.h"
 using namespace std;
 
 int main() {
@@ -196,6 +197,10 @@ int main() {
         break;
         case 9:
             menuCirculares();
+            break;
+        case 10:
+            cout<<"Has seleccionado Algoritmos de Pilas\n";
+            menuPilas();
             break;
         default:
             cout<<"Opcion no valida"<<endl;
