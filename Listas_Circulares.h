@@ -1,13 +1,13 @@
 #include<iostream>
 using namespace std;
-struct Nodo{
+struct NodoCircular{
     int dato;
-    Nodo* liga;
+    NodoCircular* liga;
 };
-void crearListaporElFinal(Nodo *&P, Nodo* &Q){
-    typedef Nodo* PNodo;
+void crearListaporElFinal(NodoCircular *&P, NodoCircular* &Q){
+    typedef NodoCircular* PNodo;
     PNodo aux;
-    P=new Nodo;
+    P=new NodoCircular;
     P->liga=nullptr;
     cout<<"Ingresa un numero para el primer nodo: "<<endl;
     cin>>P->dato;
@@ -17,7 +17,7 @@ void crearListaporElFinal(Nodo *&P, Nodo* &Q){
     cin>>resp;
     while(resp=='s' || resp== 'S'){
         aux=Q;
-        Q=new Nodo;
+        Q=new NodoCircular;
         Q->liga=nullptr;
         cout<<"Ingresa un numero para el siguiente nodo: "<<endl;
         cin>>Q->dato;
@@ -27,8 +27,13 @@ void crearListaporElFinal(Nodo *&P, Nodo* &Q){
     }
     Q->liga=P;
 }
-void imprimirListaCircular(Nodo* P){
-    typedef Nodo* PNodo;
+void imprimirListaCircular(NodoCircular* P){
+    if (P==nullptr)
+    {
+        cout << "La lista esta vacia. No se puede imprimir." << endl;
+        return; 
+    }
+    typedef NodoCircular* PNodo;
     PNodo aux = P;
     if (P == nullptr) return; // Lista vacia
     do {
@@ -37,10 +42,13 @@ void imprimirListaCircular(Nodo* P){
     } while (aux != P);
     cout << endl;
 }
-void eliminarPrimero(Nodo* &P, Nodo* &Q){
-    typedef Nodo* PNodo;
+void eliminarPrimero(NodoCircular* &P, NodoCircular* &Q){
+    typedef NodoCircular* PNodo;
     PNodo aux= P;
-    if(P==nullptr) return; // Lista vacia
+    if(P==nullptr){
+        cout<<"La lista esta vacia"<<endl;
+        return;
+    }
     if(P==Q){
         delete P;
         P=nullptr;
@@ -53,8 +61,8 @@ void eliminarPrimero(Nodo* &P, Nodo* &Q){
     }
 
 }
-void BuscarInformacion(Nodo *P){
-    typedef Nodo* PNodo;
+void BuscarInformacion(NodoCircular *P){
+    typedef NodoCircular* PNodo;
     int elemento;
     cout<<"Ingresa el elemento a buscar"<<endl;
     cin>>elemento;
@@ -77,16 +85,16 @@ void BuscarInformacion(Nodo *P){
         cout<<"El elemento no fue encontrado en la lista"<<endl;
 }
 }
-void insertarDatoAntesAOtro(Nodo *&P){
+void insertarDatoAntesAOtro(NodoCircular *&P){
     if (P == nullptr) {
         cout << "La lista esta vacia. No se puede insertar antes de otro nodo." << endl;
         return;
     }
     int Dseleccion;
-    typedef Nodo* PNodo;
+    typedef NodoCircular* PNodo;
     PNodo aux = P,T;
     PNodo Q = nullptr;
-    Q= new Nodo;
+    Q= new NodoCircular;
     cout<<"Valor a ingresar?\n";
     cin>>Q->dato;
     cout<<"Antes de que valor quires insertar el nuevo dato?\n";
@@ -112,9 +120,14 @@ void insertarDatoAntesAOtro(Nodo *&P){
         cout << "El valor especificado no se encontro en la lista." << endl;
     }
 }
-void insertarAlPrincipio(Nodo *&P){
-    typedef Nodo* PNodo;
-    PNodo Q= new Nodo;
+void insertarAlPrincipio(NodoCircular *&P){
+    if (P==nullptr)
+    {
+        cout << "La lista esta vacia. No se puede insertar al principio." << endl;
+        return;
+    }
+    typedef NodoCircular* PNodo;
+    PNodo Q= new NodoCircular;
     PNodo aux= P, T;
     cout<<"Ingresa el nuevo dato para el nodo al principio: "<<endl;
     cin>>Q->dato;
@@ -128,9 +141,14 @@ void insertarAlPrincipio(Nodo *&P){
     T->liga=Q;
     P=Q;
 }
-void insertarAlFinal(Nodo *&P){
-    typedef Nodo* PNodo;
-    PNodo Q= new Nodo;
+void insertarAlFinal(NodoCircular *&P){
+    if (P==nullptr)
+    {
+        cout << "La lista esta vacia. No se puede insertar al final." << endl;
+        return;
+    }
+    typedef NodoCircular* PNodo;
+    PNodo Q= new NodoCircular;
     PNodo aux= P;
     cout<<"Ingresa el nuevo dato para el nodo al final: "<<endl;
     cin>>Q->dato;
@@ -140,16 +158,16 @@ void insertarAlFinal(Nodo *&P){
     aux->liga=Q;
     Q->liga=P;
 }
-void eliminarEspecifico(Nodo *&P){
-    typedef Nodo* PNodo;
-    PNodo aux= P, T;
-    int elemento;
-    cout<<"Ingresa el elemento a eliminar: "<<endl;
-    cin>>elemento;
+void eliminarEspecifico(NodoCircular *&P){
     if (P==nullptr){
         cout<<"La lista esta vacia"<<endl;
         return;
     }
+    typedef NodoCircular* PNodo;
+    PNodo aux= P, T;
+    int elemento;
+    cout<<"Ingresa el elemento a eliminar: "<<endl;
+    cin>>elemento;
     while(aux->liga!= P){
         T=aux;
         aux=aux->liga;
@@ -174,12 +192,58 @@ void eliminarEspecifico(Nodo *&P){
 }
 
 
-int main(){
-    typedef Nodo* PNodo;
-    PNodo P=nullptr;
-    PNodo Q=nullptr;
-    crearListaporElFinal(P,Q);
-    imprimirListaCircular(P);
-    eliminarEspecifico(P);
-    imprimirListaCircular(P);
+void menuCirculares(){
+    typedef NodoCircular* PNodo;
+    PNodo P = nullptr;
+    PNodo Q = nullptr;
+    int opcion;
+
+    do {
+        cout << "\n--- Menu Listas Circulares ---\n";
+        cout << "1. Crear lista por el final\n";
+        cout << "2. Imprimir lista\n";
+        cout << "3. Insertar al principio\n";
+        cout << "4. Insertar antes de otro\n";
+        cout << "5. Insertar al final\n";
+        cout << "6. Eliminar primero\n";
+        cout << "7. Eliminar especifico\n";
+        cout << "8. Buscar informacion\n";
+        cout << "0. Salir\n";
+        cout << "Opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                crearListaporElFinal(P, Q);
+                break;
+            case 2:
+                imprimirListaCircular(P);
+                break;
+            case 3:
+                insertarAlPrincipio(P);
+                break;
+            case 4:
+                insertarDatoAntesAOtro(P);
+                break;
+            case 5:
+                insertarAlFinal(P);
+                break;
+            case 6:
+                eliminarPrimero(P, Q);
+                break;
+            case 7:
+                eliminarEspecifico(P);
+                break;
+            case 8:
+                BuscarInformacion(P);
+                break;
+            case 0:
+                cout << "Saliendo...\n";
+                break;
+            default:
+                cout << "Opcion no valida\n";
+                break;
+        }
+        system("pause");
+    } while (opcion != 0);
 }

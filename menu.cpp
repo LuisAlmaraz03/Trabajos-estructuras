@@ -7,6 +7,7 @@
 #include "conjuntos.h"
 #include "Listas_Simples.h"
 #include "Listas_Dobles.h"
+#include "Listas_Circulares.h"
 using namespace std;
 
 int main() {
@@ -19,7 +20,8 @@ int main() {
     cout<<"5. Algoritmos de Arreglos Multidimensionales\n";
     cout<<"6. Algoritmos de Conjuntos\n";
     cout<<"7. Algoritmos de Listas Simples\n";
-    cout<<"8. Algoritmos de Listas Doblemente Ligadas"<<endl;
+    cout<<"8. Algoritmos de Listas Doblemente Ligadas\n";
+    cout<<"9. Algoritmos de Listas Circulares"<<endl;
     cin>>opc;
     switch(opc) {
         int opc2;
@@ -192,6 +194,9 @@ int main() {
             cout<<"Has seleccionado Algoritmos de Listas Doblemente Ligadas\n";
             menuListDoble();
         break;
+        case 9:
+            menuCirculares();
+            break;
         default:
             cout<<"Opcion no valida"<<endl;
             break;    
