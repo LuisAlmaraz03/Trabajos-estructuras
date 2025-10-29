@@ -1,21 +1,126 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Función auxiliar para verificar si es una función
 bool esFuncion(const string& str) {
     return str == "sin" || str == "cos" || str == "tan" || 
            str == "log" || str == "ln" || str == "sqrt";
 }
 
-// Función auxiliar para obtener precedencia
 int precedencia(const string& op) {
     if (op == "^") return 4;
     if (op == "*" || op == "/") return 3;
     if (op == "+" || op == "-") return 2;
-    if (esFuncion(op)) return 5; // Funciones tienen alta precedencia
+    if (esFuncion(op)) return 5; 
     return 0;
 }
-
+string trad_pre(string infija) {
+    stack<string> pila;
+    pila.push("(");
+    string prefija;
+    bool num = false;
+    
+    for(int i = 0; i < infija.size(); i++) {
+        char c = infija[i];
+        
+        if (isalpha(c)) {
+            string posible_func;
+            int j = i;
+            while (j < infija.size() && isalpha(infija[j])) {
+                posible_func += infija[j];
+                j++;
+            }
+            
+            if (j < infija.size() && infija[j] == '(' && esFuncion(posible_func)) {
+                pila.push(posible_func);
+                i = j; 
+                continue;
+            } else {
+                if(num) {
+                    prefija += ',';
+                    num = false;
+                }
+                prefija += posible_func;
+                i = j - 1; 
+            }
+        }
+        else if (c >= '0' && c <= '9') {
+            if(num) {
+                prefija += c;
+            } else {
+                if(!prefija.empty() && prefija.back() != ',') {
+                    prefija += ',';
+                }
+                prefija += c;
+                num = true;
+            }
+            
+            if (i + 1 >= infija.size() || !(infija[i + 1] >= '0' && infija[i + 1] <= '9')) {
+                num = false;
+                if (i + 1 < infija.size() && infija[i + 1] != ',') {
+                    prefija += ',';
+                }
+            }
+        }
+        else if (!(c >= '0' && c <= '9') && num) {
+            prefija += ',';
+            num = false;
+        }
+        else if(c == '(') {
+            pila.push("(");
+            if(num) {
+                prefija += ',';
+                num = false;
+            }
+        }
+        else if (c == ')') {
+            while(!pila.empty() && pila.top() != "(") {
+                if(prefija.back() != ',') prefija += ',';
+                prefija += pila.top();
+                pila.pop();
+            }
+            if (!pila.empty()) pila.pop();
+            num = false;
+            
+            if (!pila.empty() && esFuncion(pila.top())) {
+                if(prefija.back() != ',') prefija += ',';
+                prefija += pila.top();
+                pila.pop();
+            }
+        }
+        else if (c == ' ') {
+            continue;
+        }
+        else {
+            string operador(1, c);
+            int prec_actual = precedencia(operador);
+            
+            if(num) {
+                prefija += ',';
+                num = false;
+            }
+            
+            while(!pila.empty() && pila.top() != "(" && 
+                   precedencia(pila.top()) >= prec_actual) {
+                if(prefija.back() != ',') prefija += ',';
+                prefija += pila.top();
+                pila.pop();
+            }
+            
+            if(prefija.empty() || prefija.back() != ',') prefija += ',';
+            pila.push(operador);
+        }
+    }
+    
+    if(num) prefija += ',';
+    
+    while(!pila.empty() && pila.top() != "(") {
+        if(prefija.back() != ',') prefija += ',';
+        prefija += pila.top();
+        pila.pop();
+    }
+    
+    return prefija;
+}
 string trad_pos(string infija) {
     stack<string> pila;
     pila.push("(");
@@ -25,37 +130,31 @@ string trad_pos(string infija) {
     for(int i = 0; i < infija.size(); i++) {
         char c = infija[i];
         
-        // Si es el inicio de una posible función
         if (isalpha(c)) {
             string posible_func;
             int j = i;
-            // Leer la palabra completa
             while (j < infija.size() && isalpha(infija[j])) {
                 posible_func += infija[j];
                 j++;
             }
             
-            // Verificar si es una función (termina con paréntesis)
             if (j < infija.size() && infija[j] == '(' && esFuncion(posible_func)) {
                 pila.push(posible_func);
-                i = j; // Saltar al paréntesis
+                i = j; 
                 continue;
             } else {
-                // Es una variable simple
                 if(num) {
                     posfija += ',';
                     num = false;
                 }
                 posfija += posible_func;
-                i = j - 1; // Ajustar índice
+                i = j - 1; 
             }
         }
-        // Números de múltiples dígitos
         else if (c >= '0' && c <= '9') {
             if(num) {
-                posfija += c; // Continuar número existente
+                posfija += c;
             } else {
-                // Nuevo número
                 if(!posfija.empty() && posfija.back() != ',') {
                     posfija += ',';
                 }
@@ -63,7 +162,6 @@ string trad_pos(string infija) {
                 num = true;
             }
             
-            // Verificar si el siguiente carácter no es dígito
             if (i + 1 >= infija.size() || !(infija[i + 1] >= '0' && infija[i + 1] <= '9')) {
                 num = false;
                 if (i + 1 < infija.size() && infija[i + 1] != ',') {
@@ -91,7 +189,6 @@ string trad_pos(string infija) {
             if (!pila.empty()) pila.pop();
             num = false;
             
-            // Si después de cerrar paréntesis hay una función en la pila
             if (!pila.empty() && esFuncion(pila.top())) {
                 if(posfija.back() != ',') posfija += ',';
                 posfija += pila.top();
@@ -99,7 +196,6 @@ string trad_pos(string infija) {
             }
         }
         else if (c == ' ') {
-            // Ignorar espacios
             continue;
         }
         else {
@@ -125,7 +221,6 @@ string trad_pos(string infija) {
     
     if(num) posfija += ',';
     
-    // Vaciar pila
     while(!pila.empty() && pila.top() != "(") {
         if(posfija.back() != ',') posfija += ',';
         posfija += pila.top();
@@ -142,7 +237,6 @@ double eva_func(string posfija) {
         if (posfija[i] == ',') {
             continue;
         }
-        // Variables (letras minúsculas individuales)
         else if (posfija[i] >= 'a' && posfija[i] <= 'z' && 
                  (i + 1 >= posfija.size() || posfija[i + 1] == ',')) {
             if(var.find(posfija[i]) == var.end()) {
@@ -153,14 +247,13 @@ double eva_func(string posfija) {
             }
             pila.push(var[posfija[i]]);
         }
-        // Funciones (palabras completas)
         else if (isalpha(posfija[i])) {
             string funcion;
             while(i < posfija.size() && isalpha(posfija[i])) {
                 funcion += posfija[i];
                 i++;
             }
-            i--; // Ajustar índice
+            i--; 
             
             if (pila.empty()) {
                 cerr << "Error: Falta argumento para " << funcion << endl;
@@ -178,13 +271,12 @@ double eva_func(string posfija) {
             else if (funcion == "ln") resultado = log(arg);
             else if (funcion == "sqrt") {
                 if (arg < 0) {
-                    cerr << "Error: Raíz cuadrada de número negativo" << endl;
+                    cerr << "Error: Raiz cuadrada de numero negativo" << endl;
                     return 0;
                 }
                 resultado = sqrt(arg);
             }
             else {
-                // Si no es función reconocida, asumir variable
                 if (funcion.size() == 1) {
                     if(var.find(funcion[0]) == var.end()) {
                         cout << "\nIngresa el valor de " << funcion[0] << ": ";
@@ -194,14 +286,13 @@ double eva_func(string posfija) {
                     }
                     resultado = var[funcion[0]];
                 } else {
-                    cerr << "Error: Función desconocida " << funcion << endl;
+                    cerr << "Error: Funcion desconocida " << funcion << endl;
                     return 0;
                 }
             }
             
             pila.push(resultado);
         }
-        // Números
         else if (posfija[i] >= '0' && posfija[i] <= '9') {
             int j = i;
             string num_str;
@@ -212,7 +303,6 @@ double eva_func(string posfija) {
             pila.push(stod(num_str));
             i = j - 1;
         }
-        // Operadores
         else {
             if (pila.size() < 2) {
                 cerr << "Error: Faltan operandos para el operador " << posfija[i] << endl;
@@ -231,7 +321,7 @@ double eva_func(string posfija) {
                 case '*': resultado = a * b; break;
                 case '/': 
                     if(b == 0) {
-                        cerr << "Error: División por cero" << endl;
+                        cerr << "Error: Division por cero" << endl;
                         return 0;
                     }
                     resultado = a / b; 
@@ -246,21 +336,21 @@ double eva_func(string posfija) {
     }
     
     if(pila.size() != 1) {
-        cerr << "Error: Expresión mal formada" << endl;
+        cerr << "Error: Expresion mal formada" << endl;
         return 0;
     }
     
-    cout << "\nLa expresión evaluada es: \n";
+    cout << "\nLa expresion evaluada es: \n";
     return pila.top();
 }
 
 int main() {
     string infija;
-    cout << "Ingresa la expresión infija: \n";
+    cout << "Ingresa la expresion infija: \n";
     getline(cin, infija);
     
     string posfija = trad_pos(infija);
-    cout << "\nLa expresión traducida a posfija es: \n" << posfija << '\n';
+    cout << "\nLa expresion traducida a posfija es: \n" << posfija << '\n';
     
     double resultado = eva_func(posfija);
     cout << resultado << '\n';
