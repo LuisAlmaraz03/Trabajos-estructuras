@@ -76,63 +76,74 @@ string trad_pos(string infija){
 double eva_func(string posfija){
     stack<double> pila;
     unordered_map<char,double> var;
+    
     for(int i=0; i<posfija.size(); i++){
-        if (posfija[i] <= 'z' && posfija[i] >= 'a'){
+        if (posfija[i] >= 'a' && posfija[i] <= 'z'){
             if(var.find(posfija[i]) == var.end()){
-                cout<<"Ingresa el valor de "<<posfija[i]<<": ";
-                double val; cin>>val; cout<<'\n';
+                cout<<"\nIngresa el valor de "<<posfija[i]<<": ";
+                double val; cin>>val;
                 var.insert({posfija[i],val});
             }
             pila.push(var[posfija[i]]);
         }
         else if(posfija[i] == ','){
-            int j=i+1;
-            string cam;
-            while(posfija[j] != ','){
-                cam+=posfija[j];
+            continue;
+        }
+        else if(posfija[i] >= '0' && posfija[i] <= '9'){
+            int j = i;
+            string num_str;
+            while(j < posfija.size() && posfija[j] >= '0' && posfija[j] <= '9'){
+                num_str += posfija[j];
                 j++;
             }
-            if(!cam.empty()){
-                pila.push(stod(cam));
-            }
+            pila.push(stod(num_str));
+            i = j - 1;
         }
         else{
-            double a,b;
-            b=pila.top();
-            pila.pop();
-            a=pila.top();
-            pila.pop();
+            if(pila.size() < 2){
+                cerr << "Error: Faltan operandos para el operador " << posfija[i] << endl;
+                return 0;
+            }
+            double b = pila.top(); pila.pop();
+            double a = pila.top(); pila.pop();
             double resul;
+            
             switch(posfija[i]){
-                case '+':
-                    resul=b+a;
+                case '+': resul = a + b; break;
+                case '-': resul = a - b; break;
+                case '*': resul = a * b; break;
+                case '/': 
+                    if(b == 0){
+                        cerr << "Error: Division por cero" << endl;
+                        return 0;
+                    }
+                    resul = a / b; 
                     break;
-                case '-':
-                    resul=b-a;
-                    break;
-                case '*':
-                    resul=b*a;
-                    break;
-                case '/':
-                    resul=a/b;
-                    break;
-                case '^':
-                    resul=pow(a,b);
-                    break;
+                case '^': resul = pow(a, b); break;
+                default:
+                    cerr << "Error: Operador desconocido" << endl;
+                    return 0;
             }
             pila.push(resul);
-            
         }
     }
+    
+    if(pila.size() != 1){
+        cerr << "Error: Expresion mal formada" << endl;
+        return 0;
+    }
+    cout<<"\nLa expresion evaluada es: \n";
     return pila.top();
 }
 
 int main() {
     string infija;
+    cout<<"Ingresa la expresion infija: \n";
     cin>>infija;
     string posfija;
     posfija = trad_pos(infija);
-    cout<<posfija<<'\n';
-    cout<<eva_func(posfija)<<'\n';
+    cout<<"\nLa expresion traducida a posfija es: \n"<<posfija<<'\n';
+    double resultado = eva_func(posfija);
+    cout<<resultado<<'\n';
     return 0;
 }
