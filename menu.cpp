@@ -23,6 +23,9 @@ int main() {
     cout<<"7. Algoritmos de Listas Simples\n";
     cout<<"8. Algoritmos de Listas Doblemente Ligadas\n";
     cout<<"9. Algoritmos de Listas Circulares"<<endl;
+    cout<<"10. Algoritmos de Pilas"<<endl;
+    cout<<"11. Algoritmos de Colas"<<endl;
+    cout<<"Seleccione una opcion (1-11): ";
     cin>>opc;
     switch(opc) {
         int opc2;
