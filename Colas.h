@@ -4,6 +4,7 @@ using namespace std;
 struct NodoCola {
     int dato;
     NodoCola* liga;
+    int prioridad;
 };
 
 void PushPorElFinal(NodoCola*& ini, NodoCola*& fin, int valor) {
@@ -171,7 +172,67 @@ void ColaConSalidaRestringida(NodoCola*& ini, NodoCola*& fin) {
 }
 }
 }
-int main(){
+void insert(NodoCola*& ini, NodoCola*& fin, int valor, int pr) {
+    NodoCola* nuevo = new NodoCola();
+    nuevo->dato = valor;
+    nuevo->prioridad = pr;
+    nuevo->liga = nullptr;
+
+    if (ini == nullptr) {
+        ini = fin = nuevo;
+        return;
+    }
+    if (nuevo->prioridad < ini->prioridad) {
+        nuevo->liga = ini;
+        ini = nuevo;
+        return;
+    }
+    NodoCola* prev = ini;
+    NodoCola* cur = ini->liga;
+    while (cur != nullptr && cur->prioridad <= nuevo->prioridad) {
+        prev = cur;
+        cur = cur->liga;
+    }
+    prev->liga = nuevo;
+    nuevo->liga = cur;
+    if (cur == nullptr) fin = nuevo;
+}
+void imprimirColaPorPrioridad(NodoCola* ini) {
+    NodoCola* aux = ini;
+    cout << "Elementos (dato:prioridad) en orden de prioridad: ";
+    while (aux != nullptr) {
+        cout << aux->dato << ":" << aux->prioridad << " ";
+        aux = aux->liga;
+    }
+    cout << endl;
+}
+
+void ColaPorPrioridad(NodoCola*& ini, NodoCola*& fin) {
+    char resp = 's';
+    while (resp == 's' || resp == 'S') {
+        int opc;
+        cout << "\n--- Cola por Prioridad (0 = mayor) ---\n";
+        cout << "1. Insertar (con prioridad)\n";
+        cout << "2. Imprimir (dato:prioridad)\n";
+        cout << "5. Salir\n";
+        cout << "Elige: ";
+        cin >> opc;
+        if (opc == 1) {
+            int v, p;
+            cout << "Valor: "; cin >> v;
+            cout << "Prioridad (0..4): "; cin >> p;
+            if (p < 0) p = 0; if (p > 4) p = 4;
+            insert(ini, fin, v, p);
+        }  else if (opc == 2) {
+            imprimirColaPorPrioridad(ini);
+        } else {
+            cout << "Opcion no valida\n";
+        }
+        cout << "Continuar en bicola por prioridad? (s/n): ";
+        cin >> resp;
+    }
+}
+void MenuColas(){
     int dato;
     typedef NodoCola* cola;
     cola ini = nullptr;
@@ -184,7 +245,8 @@ int main(){
         cout<<"Menu de Colas\n";
         cout<<"1. Colas simples"<<endl;
         cout<<"2. Bicolas"<<endl;
-        cout<<"Seleccione una opcion (1-2): ";
+        cout<<"3. Bicola por prioridad"<<endl;
+        cout<<"Seleccione una opcion (1-3): ";
         cin>>opc;
 
         switch(opc){
@@ -241,7 +303,9 @@ int main(){
                 } while(resp=='s' || resp=='S');
                 break;
             }
-
+            case 3:
+                ColaPorPrioridad(ini, fin);
+                break;
             default:
                 cout<<"Opcion no valida"<<endl;
                 break;
@@ -251,5 +315,5 @@ int main(){
         cin>>respt;
     } while(respt=='s' || respt=='S');
 
-    return 0;
+    return;
 }
