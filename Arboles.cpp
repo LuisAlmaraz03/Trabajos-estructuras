@@ -34,7 +34,36 @@ void cargar(NodoRaiz* &nodo, const int elemento){
         return;
     }
 }
+void insertarEnABB(NodoRaiz* &nodo, const int elemento){
+    if(nodo == nullptr){
+       nodo = new NodoRaiz;
+       nodo->dato = elemento;
+       nodo->izquierda = nodo->derecha = nullptr;
+    }
+    else if (elemento < nodo->dato){
+        insertarEnABB(nodo->izquierda,elemento);
+    }
+    else{
+        insertarEnABB(nodo->derecha,elemento);
+}
+}
+void buscarEnABB(NodoRaiz* nodo , const int elemento){
+    if(nodo == nullptr){
+        cout<<"El elemento"<<elemento<<" no se encuentra en el arbol."<<endl;
+        return;
+    }
+    else if(nodo->dato == elemento){
+       cout<<"El elemento"<<elemento<<" SE ENCUENTRA EN EL ARBOL"<<endl;
+       return;
 
+    }
+    else if(elemento < nodo->dato){
+        buscarEnABB(nodo->izquierda,elemento);
+    }
+    else{
+        buscarEnABB(nodo->derecha,elemento);
+    }
+}
 void imprimirPreorden(NodoRaiz* nodo){
     if (nodo != nullptr){
         cout << nodo->dato << " ";
@@ -60,7 +89,7 @@ void imprimirPosorden(NodoRaiz* nodo){
 int main(){
     NodoRaiz* raiz = nullptr;
     char continuar='s';
-    int opc=0;
+    int opc1=0;
     do
     {
         cout<<"Que quires realizar?\n";
@@ -68,8 +97,10 @@ int main(){
         cout<<"2. Imprimir datos en preorden\n";
         cout<<"3. Imprimir datos en inorden\n";
         cout<<"4. Imprimir datos en posorden"<<endl;
-        cin>>opc;
-        switch (opc)
+        cout<<"5. Cargar elementos en ABB"<<endl;
+        cout<<"6. Buscar elemento en ABB"<<endl;
+        cin>>opc1;
+        switch (opc1)
         {
         case 1:
             int dato;
@@ -91,7 +122,19 @@ int main(){
             cout<<"Los datos en posorden son: "<<endl;
             imprimirPosorden(raiz);
             system("pause");
-            break;        
+            break;  
+        case 5:
+        int dato2;
+          cout<<"Ingresa el nuevo dato para ABB"<<endl;
+          cin>>dato2;
+          insertarEnABB(raiz,dato2);
+          break;
+          case 6:
+          int dato3;
+          cout<<"Ingresa el dato a buscar en ABB"<<endl;
+          cin>>dato3;
+          buscarEnABB(raiz,dato3);
+          break;      
         default:
             break;
         }
