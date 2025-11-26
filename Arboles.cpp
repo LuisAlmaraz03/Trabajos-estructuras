@@ -86,6 +86,39 @@ void imprimirPosorden(NodoRaiz* nodo){
     }
 }
 
+NodoRaiz* encontrarMin(NodoRaiz* nodo){
+    if (nodo == nullptr) return nullptr;
+    while (nodo->izquierda != nullptr) nodo = nodo->izquierda;
+    return nodo;
+}
+
+void eliminarEnABB(NodoRaiz* &nodo, const int elemento){
+    if (nodo == nullptr) return;
+    if (elemento < nodo->dato){
+        eliminarEnABB(nodo->izquierda, elemento);
+    } else if (elemento > nodo->dato){
+        eliminarEnABB(nodo->derecha, elemento);
+    } else {
+        // Nodo encontrado
+        if (nodo->izquierda == nullptr && nodo->derecha == nullptr){
+            delete nodo;
+            nodo = nullptr;
+        } else if (nodo->izquierda == nullptr){
+            NodoRaiz* aux = nodo;
+            nodo = nodo->derecha;
+            delete aux;
+        } else if (nodo->derecha == nullptr){
+            NodoRaiz* aux = nodo;
+            nodo = nodo->izquierda;
+            delete aux;
+        } else {
+            NodoRaiz* sucesor = encontrarMin(nodo->derecha);
+            nodo->dato = sucesor->dato;
+            eliminarEnABB(nodo->derecha, sucesor->dato);
+        }
+    }
+}
+
 int main(){
     NodoRaiz* raiz = nullptr;
     char continuar='s';
@@ -99,6 +132,7 @@ int main(){
         cout<<"4. Imprimir datos en posorden"<<endl;
         cout<<"5. Cargar elementos en ABB"<<endl;
         cout<<"6. Buscar elemento en ABB"<<endl;
+        cout<<"7. Eliminar elemento en ABB"<<endl;
         cin>>opc1;
         switch (opc1)
         {
@@ -135,6 +169,14 @@ int main(){
           cin>>dato3;
           buscarEnABB(raiz,dato3);
           break;      
+          case 7:
+          int dato4;
+          cout<<"Ingresa el dato a eliminar en ABB"<<endl;
+          cin>>dato4;
+          eliminarEnABB(raiz,dato4);
+          cout<<"Si el elemento existia, fue eliminado."<<endl;
+          system("pause");
+          break;
         default:
             break;
         }
